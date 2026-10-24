@@ -1,3 +1,6 @@
+#ifndef CHIP8_H
+#define CHIP8_H
+
 #include <stdint.h>
 
 struct CHIP8 {
@@ -11,3 +14,7 @@ struct CHIP8 {
     uint16_t I; //I register
     uint16_t stack[16]; //Stack
 };
+
+void chip8_init(struct CHIP8 *chip8);
+
+#endif
