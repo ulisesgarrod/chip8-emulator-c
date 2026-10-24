@@ -1,5 +1,5 @@
 # chip8-emulator-c
-[![status: wip](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)   
+[![Status](https://img.shields.io/badge/status-Work%20in%20Progress-ffd43b?style=for-the-badge)]()     
 CHIP-8 emulator written in C, with PC and ESP32 support
 
 # Font bits choice. Red pixels = 0, green pixels = 1
