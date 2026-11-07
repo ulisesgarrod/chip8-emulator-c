@@ -16,5 +16,6 @@ struct CHIP8 {
 };
 
 void chip8_init(struct CHIP8 *chip8);
+void chip8_load_rom(struct CHIP8 *chip8, const char *romname);
 
 #endif

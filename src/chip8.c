@@ -41,3 +41,16 @@ void chip8_init(struct CHIP8 *chip8)
         chip8->memory[i] = font[i-80];
     }
 }
+
+void chip8_load_rom(struct CHIP8 *chip8, const char *romname)
+{
+    FILE *fileptr = fopen(romname, "rb");
+    if (fileptr == NULL) {
+        printf("Error reading ROM\n");
+        return;
+    }
+    
+    printf("ROM read succesfully\n");
+
+    fclose(fileptr);
+}
