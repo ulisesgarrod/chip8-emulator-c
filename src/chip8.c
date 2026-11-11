@@ -45,12 +45,48 @@ void chip8_init(struct CHIP8 *chip8)
 void chip8_load_rom(struct CHIP8 *chip8, const char *romname)
 {
     FILE *fileptr = fopen(romname, "rb");
-    if (fileptr == NULL) {
+    
+    if (fileptr == NULL)
+    {
         printf("Error reading ROM\n");
         return;
     }
-    
-    printf("ROM read succesfully\n");
 
-    fclose(fileptr);
+    printf("ROM detected succesfully\n");
+
+    fseek(fileptr, 0, SEEK_END);
+    long last_position = ftell(fileptr);
+    fseek(fileptr, 0, SEEK_SET);
+
+    if (last_position > 3584) //4096 - 0x200 = 3584, number of bytes available to use
+    {
+        fclose(fileptr);
+        printf("ROM size exceeded");
+        return;
+    } else if (last_position == 0)
+    {
+        fclose(fileptr);
+        printf("ROM is empty");
+        return;
+    } else if (last_position < 0)
+    {
+        fclose(fileptr);
+        printf("ROM size detection failed");
+        return;
+    } else 
+    {
+        uint8_t buffer[last_position];
+
+        size_t read_count = fread(buffer, 1, last_position, fileptr);
+        if (read_count != last_position)
+        {
+            printf("Read data does not match the file content");
+        } else {
+            for (int i = 0x200; i < 0x200+last_position; i++)
+            {
+                chip8->memory[i] = buffer[i-0x200]; //i starts on 0x200
+            }
+        }
+        fclose(fileptr);
+    }
 }
