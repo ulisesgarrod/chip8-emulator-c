@@ -90,3 +90,11 @@ void chip8_load_rom(struct CHIP8 *chip8, const char *romname)
         fclose(fileptr);
     }
 }
+
+uint16_t chip8_fetch_opcode(struct CHIP8 *chip8)
+{
+    uint16_t byte_high = chip8->memory[chip8->PC] << 8;
+    uint8_t byte_low = chip8->memory[(chip8->PC)+1];
+    uint16_t opcode = byte_high | byte_low;
+    return opcode;
+}
